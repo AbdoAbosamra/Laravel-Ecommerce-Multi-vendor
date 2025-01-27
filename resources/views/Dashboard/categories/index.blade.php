@@ -30,6 +30,15 @@
 
         <div class="content">
             <div class="container-fluid">
+                <form action="{{ URL::current() }}" method="get" class="d-flex justify-content-between mb-4">
+                   <x-form.input name="name" placeholder="Name" :value="request('name')"   />
+                   <select name="status" class="form-control mx-2" >
+                    <option value="">All</option>
+                    <option value="active" @selected(request('status') == 'active')>Active</option>
+                    <option value="archived" @selected(request('status') == 'archived')>Archived</option>
+                   </select>
+                     <button type="submit" class="btn btn-primary">Search</button>
+                </form>
                 <table class="table">
                     <div class="row">
                         <div class="col-lg-6">
@@ -39,6 +48,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Parent</th>
+                        <th>Status</th>
                         <th>Created At</th>
                         <th colspan="2"></th>
                     </tr>
@@ -51,6 +61,7 @@
                                 <td>{{$category->id}}</td>
                                 <td>{{$category->name}}</td>
                                 <td>{{$category->parent_id}}</td>
+                                <td>{{$category->status}}</td>
                                 <td>{{$category->created_at}}</td>
                                 <td>
                                     <a href="{{route('dashboard.categories.edit' ,['category' => $category->id])}}" class="btn btn-sm btn-outline-success">Edit</a>
@@ -70,14 +81,19 @@
                     <tr>
                         <td colspan="7">No Catefories Yet</td>
                     </tr>
+
+                    @endif
+
                     </tbody>
                 </table>
+                {{$categories->withQueryString()->appends(['search'=>1])->links()}}
                 </div>
-
-
-               @endif
             </div>
+
         </div>
+
     </div>
 
+
 @endsection
+

@@ -19,9 +19,20 @@ class CategoriesController extends Controller
     public function index()
     {
 
-        $categories = Category::all(); // return all data from category class return collection object but interact with it as array
+        //$categories = Category::all(); // return all data from category class return collection object but interact with it as array
+        //$categories = Category::simplePaginate(2); // next and previous
+        $request = request();
+        $query = Category::query();
+        if ($name = $request->query('name')) {
+            $query->where('name', 'like', "%{$name}%");
+        }
+        if ($status = $request->query('status')) {
+            $query->where('status', $status);
+        }
+        $categories = $query->paginate(1); // next and previous and numbers
+
         //so i can
-//        $categories->first();
+  //        $categories->first();
         // and can also interact with it as array
 //        $categories[0];
         return view('dashboard.categories.index' , compact('categories'));
