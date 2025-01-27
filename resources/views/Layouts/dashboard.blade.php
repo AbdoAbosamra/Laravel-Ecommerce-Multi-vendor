@@ -201,7 +201,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
 
             <!-- Sidebar Menu -->
-            @include('Layouts.partials.nav' )
+            {{--@include('Layouts.partials.nav' )--}}
+            <x-nav />
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->

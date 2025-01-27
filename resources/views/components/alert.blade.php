@@ -1,11 +1,7 @@
-@if(session()->has('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+@if(session()->has($type))
+    <div class="alert alert-{{$type}}">
+        {{ session($type) }}
     </div>
 @endif
-@if(session()->has('info'))
-    <div class="alert alert-info">
-        {{ session('info') }}
-    </div>
-@endif
+
 

@@ -25,7 +25,9 @@
             <a href="{{route("dashboard.categories.create")}}" class="btn btn-sm btn-outline-primary"> Create</a>
         </div>
         <!-- Main content -->
-        <x-alert />
+        <x-alert type="success"/>
+        <x-alert type="info"/>
+
         <div class="content">
             <div class="container-fluid">
                 <table class="table">

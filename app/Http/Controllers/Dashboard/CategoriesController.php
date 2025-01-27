@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
+use PHPUnit\Util\Exception;
 
 class CategoriesController extends Controller
 {
@@ -99,10 +100,17 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        $category =Category::findOrFail($id); // if found this id will return the object else will return null.
-        // if(!$category){
-        //     abort(404);
-        // }
+        try {
+            $category = Category::findOrFail($id); // if found this id will return the object else will return null.
+            // if(!$category){
+            //     abort(404);
+            // }
+        } catch (\Exception $e){
+            return redirect()->route('dashboard.categories.index')->with('info' ,'Category Not found!');
+        }
+
+
+
 
 
 
@@ -149,7 +157,7 @@ class CategoriesController extends Controller
 //            ]); // The defulat route is storage/app/uploads
 //            $data['image'] =$path;
 //        }
-        if($old_image && $data['image']){
+        if ($old_image && isset($data['image']) && $data['image'] !== $old_image) {
             Storage::disk('public')->delete($old_image);  // if we have two images the old one and new one so replace new with the old and delete old one
         }
         $category->update($data);

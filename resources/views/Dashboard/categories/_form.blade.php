@@ -3,22 +3,14 @@
         <h3>Error Occured!</h3>
         <ul>
             @foreach($errors->all() as $error)
-            <li>{{$error}}</li>
+                <li>{{$error}}</li>
             @endforeach
         </ul>
     </div>
 @endif
 <div class="form-group">
-    <label for="">Category Name</label>
-    <input type="text" name="name" @class([
-    'form-control',
-    'is-invalid' => $errors->has('name')
-    ]) value="{{ old('name' , $category->name)  }}">
-    @error('name')
-    <div class="text-danger">
-        {{$errors->first('name')}}
-    </div>
-    @enderror
+
+    <x-form.input label="Category" name="name" :value="$category->name"  />
 {{--    @if($errors->has('name'))--}}
 {{--        <div class="text-danger">--}}
 {{--            {{$errors->first('name')}}--}}
@@ -39,7 +31,7 @@
     <textarea name="description" class = "form-control" >{{old('description' , $category->description)}}</textarea>
 </div>
 <div class="form-group">
-    <label for="">Image</label>
+    <x-form.label id="image">Image</x-form.label>
     <input type="file" name="image" class="form-control" accept="image/*">
     @if($category->image)
         <img src="{{asset("storage/" . $category->image) }}" alt="" height="60" >

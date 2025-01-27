@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
+use App\Rules\Filter;
 
 class Category extends Model
 {
@@ -26,6 +27,13 @@ class Category extends Model
                     'min:3',
                     'max:255',
                     Rule::unique('categories' ,'name')->ignore($id),
+                    // function($attribute , $value , $fail){
+                    //     if(strtolower($value) == 'laravel'){
+                    //         $fail('The name is forbidden');
+                    //     }
+                    // }
+                    // 'filter:PHP',
+                    new Filter("PHP"),
                     ],//  'unique:categories,name,$id", // Unique is check if the user have The same name of anonter row of the name
             'parent_id'=> [
                 'nullable','int','exists:categories,id' ,
